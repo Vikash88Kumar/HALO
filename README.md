@@ -97,3 +97,34 @@ Dropout with different placement that still wouldn't show up in a state
 dict, but a different channel count or an extra layer would). The error
 message will tell you exactly which key/shape doesn't match — adjust the
 corresponding line in `models.py`.
+
+## 6. System Architecture (Global Video-to-Tactics Context)
+
+The pipeline transforms raw broadcast video into actionable tactical data through a multi-stage neural architecture:
+
+```mermaid
+graph LR
+    A[Input Video Frame<br>Field] -->|BBoxes| B(YOLOv8 Tracker<br>Detect & ByteTrack ID)
+    B -->|IDs| C(Verified Player Tracks)
+    C -->|Torso| D(Spatial Transf. STN)
+    D -->|Extract| E(CNN Backbone)
+    E --> F[Head: Tens<br>0-9+B]
+    E --> G[Head: Units<br>0-9+B]
+    E --> H[Head: Visible<br>Y/N, Conf]
+    F -->|Scores| I(Voting & Consensus<br>JerseyTrackMemory votes)
+    G -->|Scores| I
+    H -->|VLM IDs| I
+    I -->|Time| J[Tactical JSON Output]
+    A -.->|Global Video-to-Tactics Context| J
+```
+
+### Analysis of the Processing Flow
+1. **YOLOv8 Tracker**: The raw input video frame is fed into a YOLOv8 object detector which identifies bounding boxes (BBoxes). These are linked across frames using ByteTrack to establish **Verified Player Tracks** with persistent IDs.
+2. **Spatial Transformer Network (STN)**: A torso crop is extracted from each tracked player. The STN dynamically aligns and transforms this crop to normalize the perspective, correcting for wrinkles and viewing angles.
+3. **CNN Backbone**: The aligned torso crop passes through a deep Convolutional Neural Network backbone to extract dense visual features.
+4. **Multi-Head Classification**: The backbone features branch into three specialized heads:
+   - **Head: Tens**: Predicts the first digit of the jersey number (0-9 or Blank).
+   - **Head: Units**: Predicts the second digit of the jersey number (0-9 or Blank).
+   - **Head: Visible**: Predicts whether a number is currently visible (Y/N) along with a confidence score.
+5. **Voting & Consensus**: Because jersey numbers are often occluded or blurred in single frames, the system uses a temporal `JerseyTrackMemory`. It aggregates scores over time for each tracked ID, establishing a highly accurate consensus on the player's identity.
+6. **Tactical JSON Output**: Finally, the system merges the persistent global context, tracking coordinates, and verified identities to output a structured JSON stream of tactical events.
