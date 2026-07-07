@@ -1,4 +1,4 @@
-# JerseyIQ — Match Intelligence Console
+# HALO — Match Intelligence Console
 
 This is the fully wired-up version of your project: the `index.html`
 frontend talking to a real Flask backend (`app.py`) that runs your three
