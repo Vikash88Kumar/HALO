@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>About — HALO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:            #0A1C16;
+    --border-soft:   #1B3E31;
+    --gold:          #C89B3C;
+    --text:          #EFF5F1;
+    --text-dim:      #A9BEB3;
+    --font-display:  'Oswald', sans-serif;
+    --font-body:     'Inter', sans-serif;
+  }
+  *{ box-sizing:border-box; }
+  body {
+    margin: 0;
+    background: radial-gradient(circle at 15% 0%, #0F241C 0%, var(--bg) 45%);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .jiq-root{ padding: 28px; }
+  .jiq-shell{ max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+  /* Header */
+  .jiq-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border-soft);
+  }
+  .jiq-brand{ display:flex; align-items:center; gap:14px; text-decoration:none; }
+  .jiq-mark{
+    width:42px; height:42px; border-radius:10px;
+    background: linear-gradient(150deg, var(--gold) 0%, #8f6d24 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display); font-weight:700; font-size:18px; color:#12200f;
+  }
+  .jiq-brand h1{
+    font-family: var(--font-display); font-weight:600; letter-spacing:0.03em;
+    font-size:22px; margin:0; text-transform:uppercase; color:var(--text);
+  }
+  
+  .nav-link {
+    font-family: var(--font-display); font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--text-dim); text-decoration: none; padding: 8px 16px; border: 1px solid var(--border-soft);
+    border-radius: 8px; transition: 0.2s ease;
+  }
+  .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+
+  /* About Content */
+  .jiq-about-section { margin-top: 40px; }
+  .jiq-about-header { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; }
+  .jiq-about-header .accent-bar { width: 4px; height: 36px; background: #e8ffa8; border-radius: 4px; }
+  .jiq-about-header h2 { font-family: var(--font-display); font-size: 36px; font-weight: 700; margin: 0; color: #ffffff; }
+  
+  .jiq-about-content { display: grid; grid-template-columns: 1.1fr 1fr; gap: 50px; align-items: center; }
+  @media (max-width: 860px) { .jiq-about-content { grid-template-columns: 1fr; } }
+  
+  .jiq-about-text h3 { font-family: var(--font-display); color: #e8ffa8; font-size: 24px; font-weight: 600; margin: 0 0 20px 0; }
+  .jiq-about-text p { font-size: 16px; line-height: 1.7; color: #d1d5db; margin: 0 0 20px 0; }
+  .jiq-about-text p b { color: #ffffff; font-weight: 600; }
+  
+  .jiq-about-image img { width: 100%; border-radius: 16px; border: 1px solid var(--border-soft); box-shadow: 0 12px 40px rgba(0,0,0,0.5); display: block; }
+</style>
+</head>
+<body>
+<div class="jiq-root">
+  <div class="jiq-shell">
+    <div class="jiq-header">
+      <a href="/" class="jiq-brand">
+        <div class="jiq-mark">H</div>
+        <div>
+          <h1>HALO</h1>
+        </div>
+      </a>
+      <div class="jiq-header-right">
+        <a href="/" class="nav-link">← Back to Dashboard</a>
+      </div>
+    </div>
+    
+    <div class="jiq-about-section">
+      <div class="jiq-about-header">
+        <div class="accent-bar"></div>
+        <h2>The Solution: Project HALO</h2>
+      </div>
+      <div class="jiq-about-content">
+        <div class="jiq-about-text">
+          <h3>Heuristic Action-Locked Observation</h3>
+          <p>We solve the "Compute Trap" by mimicking the human eye. <b>Project HALO</b> restricts heavy tracking and OCR to a dynamic radius around the ball.</p>
+          <p>This ball-centric receptive field (ROI) ensures that we only spend GPU cycles on players currently involved in the tactical phase of play.</p>
+        </div>
+        <div class="jiq-about-image">
+          <img src="/static/halo_solution.jpg" alt="HALO Tracking Demonstration" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

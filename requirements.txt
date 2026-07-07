@@ -1,0 +1,15 @@
+# Core web backend
+flask>=3.0,<4.0
+
+# Computer vision / video IO
+opencv-python>=4.8
+
+# Detection + tracking (loads models/detection_best.pt, includes BoT-SORT tracker)
+ultralytics>=8.1
+
+# Deep learning runtime (loads jersey_ocr_best.pt and ccnn_best.pt)
+# If you have an NVIDIA GPU, install the CUDA build from https://pytorch.org/get-started/locally/
+# instead of the line below for much faster processing.
+torch>=2.1
+
+numpy>=1.24

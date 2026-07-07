@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+outputs/
+inputs/
+uploads/
+models/*.pt
+*.pt
+*.mp4
+*.avi
+*.mkv
+.env
+ffmpeg_trace.log
+ffmpeg_debug.log

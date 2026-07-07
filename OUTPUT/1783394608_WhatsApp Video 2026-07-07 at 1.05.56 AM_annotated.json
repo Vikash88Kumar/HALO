@@ -1,0 +1,153 @@
+{
+  "input_video": "C:\\Users\\VIKASH\\OneDrive\\Desktop\\FIFA\\halo_jerseyiq\\uploads\\1783394608_WhatsApp Video 2026-07-07 at 1.05.56 AM.mp4",
+  "output_video": "C:\\Users\\VIKASH\\OneDrive\\Desktop\\FIFA\\halo_jerseyiq\\OUTPUT\\1783394608_WhatsApp Video 2026-07-07 at 1.05.56 AM_annotated.mp4",
+  "weights": "C:\\Users\\VIKASH\\OneDrive\\Desktop\\FIFA\\halo_jerseyiq\\models\\detection_best.pt",
+  "frames_processed": 100,
+  "players_seen": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53
+  ],
+  "ball_detections": 34,
+  "events": [
+    {
+      "frame": 8,
+      "type": "touch",
+      "track_id": 24,
+      "jersey": "0",
+      "distance_px": 62.95
+    },
+    {
+      "frame": 13,
+      "type": "touch",
+      "track_id": 24,
+      "jersey": "0",
+      "distance_px": 1.02
+    },
+    {
+      "frame": 14,
+      "type": "touch",
+      "track_id": 17,
+      "jersey": "05",
+      "distance_px": 64.27
+    },
+    {
+      "frame": 14,
+      "type": "pass",
+      "from_track_id": 24,
+      "from_jersey": "0",
+      "to_track_id": 17,
+      "to_jersey": "05"
+    },
+    {
+      "frame": 34,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "05",
+      "distance_px": 44.11
+    },
+    {
+      "frame": 34,
+      "type": "pass",
+      "from_track_id": 17,
+      "from_jersey": "05",
+      "to_track_id": 1,
+      "to_jersey": "05"
+    },
+    {
+      "frame": 36,
+      "type": "touch",
+      "track_id": 17,
+      "jersey": "05",
+      "distance_px": 0.57
+    },
+    {
+      "frame": 36,
+      "type": "pass",
+      "from_track_id": 1,
+      "from_jersey": "05",
+      "to_track_id": 17,
+      "to_jersey": "05"
+    },
+    {
+      "frame": 53,
+      "type": "touch",
+      "track_id": 34,
+      "jersey": "?",
+      "distance_px": 0.25
+    },
+    {
+      "frame": 53,
+      "type": "pass",
+      "from_track_id": 17,
+      "from_jersey": "05",
+      "to_track_id": 34,
+      "to_jersey": "?"
+    },
+    {
+      "frame": 55,
+      "type": "touch",
+      "track_id": 34,
+      "jersey": "?",
+      "distance_px": 0.68
+    },
+    {
+      "frame": 56,
+      "type": "touch",
+      "track_id": 34,
+      "jersey": "?",
+      "distance_px": 0.75
+    }
+  ],
+  "note": "Combined single-file runner: batch INPUT_VIDEOS loop + run_halo inference logic."
+}

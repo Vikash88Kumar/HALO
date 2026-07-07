@@ -1,0 +1,769 @@
+{
+  "input_video": "C:\\Users\\VIKASH\\OneDrive\\Desktop\\FIFA\\halo_jerseyiq\\inputs\\sample_input.mp4",
+  "output_video": "C:\\Users\\VIKASH\\OneDrive\\Desktop\\FIFA\\halo_jerseyiq\\OUTPUT\\sample_input_annotated.mp4",
+  "weights": "C:\\Users\\VIKASH\\OneDrive\\Desktop\\FIFA\\halo_jerseyiq\\models\\detection_best.pt",
+  "frames_processed": 150,
+  "players_seen": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "ball_detections": 150,
+  "events": [
+    {
+      "frame": 5,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 22.38
+    },
+    {
+      "frame": 7,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 25.33
+    },
+    {
+      "frame": 8,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.93
+    },
+    {
+      "frame": 9,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 29.2
+    },
+    {
+      "frame": 10,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.61
+    },
+    {
+      "frame": 11,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.61
+    },
+    {
+      "frame": 12,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.71
+    },
+    {
+      "frame": 13,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 24.7
+    },
+    {
+      "frame": 14,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 23.56
+    },
+    {
+      "frame": 15,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 19.82
+    },
+    {
+      "frame": 16,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 14.85
+    },
+    {
+      "frame": 18,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 10.39
+    },
+    {
+      "frame": 19,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 10.96
+    },
+    {
+      "frame": 20,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 3.51
+    },
+    {
+      "frame": 21,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 13.16
+    },
+    {
+      "frame": 25,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.49
+    },
+    {
+      "frame": 27,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 30.42
+    },
+    {
+      "frame": 28,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 29.87
+    },
+    {
+      "frame": 29,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 30.0
+    },
+    {
+      "frame": 31,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.44
+    },
+    {
+      "frame": 32,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 22.79
+    },
+    {
+      "frame": 33,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 24.42
+    },
+    {
+      "frame": 34,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 21.09
+    },
+    {
+      "frame": 35,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 19.32
+    },
+    {
+      "frame": 36,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 14.6
+    },
+    {
+      "frame": 39,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 15.28
+    },
+    {
+      "frame": 41,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 18.89
+    },
+    {
+      "frame": 42,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 21.56
+    },
+    {
+      "frame": 43,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 23.63
+    },
+    {
+      "frame": 44,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.2
+    },
+    {
+      "frame": 45,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.82
+    },
+    {
+      "frame": 46,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.61
+    },
+    {
+      "frame": 47,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.07
+    },
+    {
+      "frame": 48,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.71
+    },
+    {
+      "frame": 49,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.25
+    },
+    {
+      "frame": 50,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.33
+    },
+    {
+      "frame": 51,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 24.53
+    },
+    {
+      "frame": 52,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 22.29
+    },
+    {
+      "frame": 53,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 20.16
+    },
+    {
+      "frame": 55,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 12.07
+    },
+    {
+      "frame": 56,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 9.6
+    },
+    {
+      "frame": 57,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 8.43
+    },
+    {
+      "frame": 58,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 1.55
+    },
+    {
+      "frame": 59,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 14.34
+    },
+    {
+      "frame": 60,
+      "type": "touch",
+      "track_id": 2,
+      "jersey": "05",
+      "distance_px": 14.57
+    },
+    {
+      "frame": 60,
+      "type": "pass",
+      "from_track_id": 1,
+      "from_jersey": "5",
+      "to_track_id": 2,
+      "to_jersey": "05"
+    },
+    {
+      "frame": 61,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 24.02
+    },
+    {
+      "frame": 61,
+      "type": "pass",
+      "from_track_id": 2,
+      "from_jersey": "05",
+      "to_track_id": 1,
+      "to_jersey": "5"
+    },
+    {
+      "frame": 62,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.05
+    },
+    {
+      "frame": 63,
+      "type": "touch",
+      "track_id": 2,
+      "jersey": "05",
+      "distance_px": 16.49
+    },
+    {
+      "frame": 63,
+      "type": "pass",
+      "from_track_id": 1,
+      "from_jersey": "5",
+      "to_track_id": 2,
+      "to_jersey": "05"
+    },
+    {
+      "frame": 64,
+      "type": "touch",
+      "track_id": 2,
+      "jersey": "05",
+      "distance_px": 17.1
+    },
+    {
+      "frame": 65,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.12
+    },
+    {
+      "frame": 65,
+      "type": "pass",
+      "from_track_id": 2,
+      "from_jersey": "05",
+      "to_track_id": 1,
+      "to_jersey": "5"
+    },
+    {
+      "frame": 66,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 30.09
+    },
+    {
+      "frame": 67,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 30.4
+    },
+    {
+      "frame": 68,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 14.77
+    },
+    {
+      "frame": 69,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.05
+    },
+    {
+      "frame": 70,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.03
+    },
+    {
+      "frame": 72,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 20.34
+    },
+    {
+      "frame": 76,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 11.39
+    },
+    {
+      "frame": 80,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 20.59
+    },
+    {
+      "frame": 81,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 23.94
+    },
+    {
+      "frame": 82,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 23.17
+    },
+    {
+      "frame": 83,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 20.4
+    },
+    {
+      "frame": 84,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.07
+    },
+    {
+      "frame": 86,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.74
+    },
+    {
+      "frame": 87,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 25.68
+    },
+    {
+      "frame": 88,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.16
+    },
+    {
+      "frame": 90,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 21.67
+    },
+    {
+      "frame": 91,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 18.03
+    },
+    {
+      "frame": 92,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 13.21
+    },
+    {
+      "frame": 93,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 12.4
+    },
+    {
+      "frame": 94,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 8.79
+    },
+    {
+      "frame": 95,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 9.2
+    },
+    {
+      "frame": 96,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 14.06
+    },
+    {
+      "frame": 102,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 29.21
+    },
+    {
+      "frame": 104,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 30.05
+    },
+    {
+      "frame": 106,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.46
+    },
+    {
+      "frame": 114,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 13.07
+    },
+    {
+      "frame": 115,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 14.87
+    },
+    {
+      "frame": 117,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 19.52
+    },
+    {
+      "frame": 118,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 20.9
+    },
+    {
+      "frame": 119,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 25.16
+    },
+    {
+      "frame": 120,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.19
+    },
+    {
+      "frame": 121,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.48
+    },
+    {
+      "frame": 122,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.77
+    },
+    {
+      "frame": 123,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.12
+    },
+    {
+      "frame": 124,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 28.65
+    },
+    {
+      "frame": 125,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.86
+    },
+    {
+      "frame": 126,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 26.16
+    },
+    {
+      "frame": 127,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 23.67
+    },
+    {
+      "frame": 128,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 20.81
+    },
+    {
+      "frame": 129,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 19.5
+    },
+    {
+      "frame": 130,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 14.49
+    },
+    {
+      "frame": 131,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 11.44
+    },
+    {
+      "frame": 132,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 6.27
+    },
+    {
+      "frame": 133,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 3.68
+    },
+    {
+      "frame": 134,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 12.58
+    },
+    {
+      "frame": 135,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 12.78
+    },
+    {
+      "frame": 136,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 14.05
+    },
+    {
+      "frame": 138,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 15.68
+    },
+    {
+      "frame": 140,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 29.79
+    },
+    {
+      "frame": 141,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 30.12
+    },
+    {
+      "frame": 142,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 24.67
+    },
+    {
+      "frame": 143,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 29.24
+    },
+    {
+      "frame": 144,
+      "type": "touch",
+      "track_id": 1,
+      "jersey": "5",
+      "distance_px": 27.21
+    }
+  ],
+  "note": "Combined single-file runner: batch INPUT_VIDEOS loop + run_halo inference logic."
+}

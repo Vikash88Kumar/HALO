@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>HALO — Match Intelligence Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:            #0A1C16;
+    --bg-alt:        #0D2019;
+    --panel:         #123027;
+    --panel-alt:     #17392E;
+    --panel-raised:  #1C4436;
+    --border:        #23503F;
+    --border-soft:   #1B3E31;
+    --gold:          #C89B3C;
+    --gold-soft:     rgba(200,155,60,0.16);
+    --cyan:          #4FE3C1;
+    --cyan-soft:     rgba(79,227,193,0.14);
+    --coral:         #FF7A59;
+    --team-a:        #4FE3C1;
+    --team-b:        #E3B94F;
+    --text:          #EFF5F1;
+    --text-dim:      #A9BEB3;
+    --text-faint:    #6E8578;
+    --font-display:  'Oswald', sans-serif;
+    --font-body:     'Inter', sans-serif;
+    --font-mono:     'JetBrains Mono', monospace;
+    --radius-lg:     16px;
+    --radius-md:     10px;
+    --radius-sm:     6px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  .jiq-root{
+    background: radial-gradient(circle at 15% 0%, #0F241C 0%, var(--bg) 45%);
+    color: var(--text);
+    font-family: var(--font-body);
+    padding: 28px;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .jiq-shell{ max-width: 1360px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+  .jiq-header{
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap: wrap; gap: 14px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .jiq-brand{ display:flex; align-items:center; gap:14px; }
+  .jiq-mark{
+    width:42px; height:42px; border-radius:10px;
+    background: linear-gradient(150deg, var(--gold) 0%, #8f6d24 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display); font-weight:700; font-size:18px; color:#12200f;
+    flex-shrink:0;
+  }
+  .jiq-brand h1{
+    font-family: var(--font-display); font-weight:600; letter-spacing:0.03em;
+    font-size:22px; margin:0; text-transform:uppercase;
+  }
+  .jiq-brand p{ margin:2px 0 0; font-size:12.5px; color:var(--text-dim); }
+  .jiq-header-right{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .jiq-match-chip{
+    font-family: var(--font-mono); font-size:12px; color:var(--text-dim);
+    background: var(--panel); border:1px solid var(--border-soft);
+    padding:7px 12px; border-radius: 999px;
+  }
+  .jiq-status-chip{
+    display:flex; align-items:center; gap:7px;
+    font-family: var(--font-mono); font-size:11.5px; letter-spacing:0.06em;
+    padding:7px 12px; border-radius:999px; text-transform:uppercase;
+    border:1px solid var(--border-soft); background: var(--panel); color: var(--text-dim);
+  }
+  .jiq-status-chip.busy{ color:#ff9d84; background: rgba(255,122,89,0.12); border-color: rgba(255,122,89,0.35); }
+  .jiq-status-chip.ready{ color: var(--cyan); background: var(--cyan-soft); border-color: rgba(79,227,193,0.35); }
+  .jiq-status-chip .dot{ width:7px; height:7px; border-radius:50%; background: currentColor; }
+  .jiq-status-chip.busy .dot{ animation: pulseDot 1.4s ease-in-out infinite; }
+
+  @keyframes pulseDot{ 0%,100%{ opacity:1; transform:scale(1);} 50%{ opacity:0.35; transform:scale(0.7);} }
+
+  .jiq-grid{ display:grid; grid-template-columns: 1.62fr 1fr; gap:18px; align-items:start; }
+  @media (max-width: 980px){ .jiq-grid{ grid-template-columns: 1fr; } }
+
+  .jiq-panel{
+    background: var(--panel);
+    border:1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    overflow:hidden;
+  }
+  .jiq-panel-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 18px; border-bottom:1px solid var(--border-soft);
+  }
+  .jiq-panel-head h2{
+    font-family: var(--font-display); font-size:13.5px; letter-spacing:0.08em;
+    text-transform:uppercase; margin:0; color:var(--text);
+    display:flex; align-items:center; gap:9px; font-weight:600;
+  }
+  .jiq-panel-head h2 .bullet{ width:6px;height:6px;border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+  .jiq-tag{
+    font-family: var(--font-mono); font-size:10.5px; color:var(--text-faint);
+    border:1px solid var(--border-soft); padding:3px 9px; border-radius:999px;
+  }
+  .jiq-upload-row{ margin:0; display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:860px){ .jiq-upload-row{ grid-template-columns:1fr; } }
+  .upload-card{ background: var(--panel); border:1px solid var(--border-soft); border-radius:var(--radius-lg); padding:18px; display:flex; flex-direction:column; gap:12px; }
+  .upload-label{ font-family:var(--font-display); font-size:14px; letter-spacing:0.04em; text-transform:uppercase; color:var(--text); }
+  .upload-controls{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  .upload-controls input[type=file], .upload-controls select{ color:var(--text); background:rgba(255,255,255,0.05); border:1px solid var(--border-soft); border-radius:10px; padding:10px 12px; min-width:220px; }
+  .upload-controls button{ cursor:pointer; border:none; border-radius:10px; background:var(--gold); color:#12200f; padding:10px 18px; font-weight:700; }
+  .upload-controls button:disabled{ opacity:0.5; cursor:not-allowed; }
+  .upload-status{ font-family:var(--font-mono); font-size:12px; color:var(--text-faint); word-break:break-word; }
+  .upload-status a{ color:var(--cyan); }
+
+  .progress-track{ margin-top:2px; height:10px; background:var(--panel-alt); border-radius:6px; overflow:hidden; border:1px solid var(--border-soft); }
+  .progress-fill{
+    width:0%; height:100%; background:linear-gradient(90deg,var(--cyan),var(--gold));
+    transition: width .25s ease; display:flex; align-items:center; justify-content:center;
+    font-size:9.5px; color:#08211a; font-weight:700; font-family:var(--font-mono);
+  }
+
+  .jiq-video{
+    position:relative; width:100%; aspect-ratio: 16/9;
+    background: repeating-linear-gradient(100deg, #163825 0 42px, #123024 42px 84px);
+    overflow:hidden;
+  }
+  .jiq-video::before{
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.55) 100%);
+    pointer-events:none; z-index:5;
+  }
+  .pitch-line{ position:absolute; border-color:rgba(255,255,255,0.16); }
+  .pitch-halfway{ left:50%; top:0; bottom:0; width:0; border-left:2px solid rgba(255,255,255,0.16); }
+  .pitch-circle{
+    left:50%; top:50%; width:150px; height:150px; border-radius:50%;
+    border:2px solid rgba(255,255,255,0.16); transform:translate(-50%,-50%);
+  }
+  .pitch-spot{ left:50%; top:50%; width:6px;height:6px; border-radius:50%; background:rgba(255,255,255,0.22); transform:translate(-50%,-50%); }
+
+  .video-empty-note{
+    position:absolute; z-index:4; left:50%; top:50%; transform:translate(-50%,-50%);
+    font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim);
+    background: rgba(6,16,12,0.6); padding:10px 16px; border-radius:8px; text-align:center;
+    border: 1px dashed var(--border-soft); max-width:70%;
+  }
+
+  .video-preview{ position:absolute; inset:0; z-index:1; overflow:hidden; background:#07120d; }
+  .video-preview video{ width:100%; height:100%; object-fit:contain; background:#000; }
+
+  .jiq-pipeline{ padding:16px 18px 20px; }
+  .pipeline-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  @media (max-width:640px){ .pipeline-row{ grid-template-columns:1fr; } }
+  .stage{
+    background: var(--panel-alt); border:1px solid var(--border-soft);
+    border-radius: var(--radius-md); padding:13px 14px; position:relative;
+    transition: border-color .5s ease, box-shadow .5s ease, background .5s ease;
+  }
+  .stage.active{
+    border-color: var(--cyan); background: var(--panel-raised);
+    box-shadow: 0 0 0 1px rgba(79,227,193,0.25), 0 8px 24px -8px rgba(79,227,193,0.25);
+  }
+  .stage.complete{ border-color: rgba(200,155,60,0.5); }
+  .stage-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:9px; }
+  .stage-name{ font-family:var(--font-display); font-size:14px; letter-spacing:0.03em; text-transform:uppercase; font-weight:600; }
+  .stage.active .stage-name{ color:var(--cyan); }
+  .stage-num{ font-family:var(--font-mono); font-size:10.5px; color:var(--text-faint); }
+  .stage-chips{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:11px; }
+  .chip{ font-size:10.5px; font-family:var(--font-mono); color:var(--text-dim); background:rgba(255,255,255,0.04); border:1px solid var(--border-soft); padding:3px 8px; border-radius:6px; }
+  .stage.active .chip{ color:var(--text); border-color:rgba(79,227,193,0.3); }
+  .stage-hw{ font-family:var(--font-mono); font-size:10px; color:var(--text-faint); display:flex; align-items:center; gap:6px; }
+  .stage-hw .hdot{ width:5px;height:5px;border-radius:50%; background:var(--border); }
+  .stage.active .stage-hw .hdot{ background:var(--cyan); box-shadow:0 0 6px var(--cyan); }
+  .stage.active .stage-hw{ color:var(--text-dim); }
+
+  .jiq-side{ display:flex; flex-direction:column; gap:18px; }
+  .feed{ max-height:238px; overflow-y:auto; padding:6px 0; }
+  .feed::-webkit-scrollbar{ width:6px; }
+  .feed::-webkit-scrollbar-thumb{ background:var(--border); border-radius:4px; }
+  .feed-empty{ padding:18px; font-family:var(--font-mono); font-size:12px; color:var(--text-faint); text-align:center; }
+
+  .commentary-item{ display:flex; gap:10px; padding:10px 18px; border-bottom:1px solid var(--border-soft); animation: itemIn .4s ease; }
+  .commentary-item:last-child{ border-bottom:none; }
+  @keyframes itemIn{ from{ opacity:0; transform:translateY(-6px);} to{ opacity:1; transform:translateY(0);} }
+  .c-avatar{ flex-shrink:0; width:26px; height:26px; border-radius:7px; background:var(--gold-soft); border:1px solid rgba(200,155,60,0.4); display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .c-body p{ margin:0; font-size:13px; line-height:1.45; color:var(--text); }
+  .c-meta{ margin-top:3px; font-family:var(--font-mono); font-size:10px; color:var(--text-faint); }
+  .commentary-item.shot .c-avatar{ background:rgba(255,122,89,0.15); border-color:rgba(255,122,89,0.5); }
+  .commentary-item.flag .c-avatar{ background:var(--gold-soft); border-color:rgba(200,155,60,0.5); }
+
+  .log-item{ font-family:var(--font-mono); font-size:11.5px; padding:9px 18px; border-bottom:1px solid var(--border-soft); color:var(--text-dim); animation:itemIn .4s ease; display:flex; gap:8px; }
+  .log-item:last-child{ border-bottom:none; }
+  .log-t{ color:var(--text-faint); flex-shrink:0; }
+  .log-ev{ font-weight:600; padding:0 6px; border-radius:4px; flex-shrink:0; height:fit-content; }
+  .ev-TOUCH{ color:var(--text-dim); background:rgba(255,255,255,0.05); }
+  .ev-PASS{ color:var(--cyan); background:var(--cyan-soft); }
+  .ev-SHOT{ color:var(--coral); background:rgba(255,122,89,0.14); }
+  .ev-FLAG{ color:var(--gold); background:var(--gold-soft); }
+  .ev-INTERCEPTION{ color:#d9a8ff; background:rgba(217,168,255,0.12); }
+
+  .jiq-kpis{ display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  @media (max-width:980px){ .jiq-kpis{ grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:560px){ .jiq-kpis{ grid-template-columns:repeat(2,1fr);} }
+  .kpi{ background:var(--panel); border:1px solid var(--border-soft); border-radius:var(--radius-md); padding:14px 16px; }
+  .kpi-label{ font-family:var(--font-mono); font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-faint); margin-bottom:8px; }
+  .kpi-value{ font-family:var(--font-display); font-size:24px; font-weight:600; color:var(--text); }
+  .kpi-value span{ font-size:14px; color:var(--text-faint); font-family:var(--font-mono); font-weight:400; }
+  .kpi-sub{ margin-top:5px; font-size:11px; color:var(--text-dim); }
+  .kpi-sub.up{ color:var(--cyan); }
+
+  .jiq-footer-note{ text-align:center; font-size:11.5px; color:var(--text-faint); padding-top:4px; font-family:var(--font-mono); }
+  .jiq-footer-note b{ color:var(--text-dim); }
+
+  /* About Section */
+  .jiq-about-section {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .jiq-about-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .jiq-about-header .accent-bar {
+    width: 4px;
+    height: 32px;
+    background: #e8ffa8;
+    border-radius: 4px;
+  }
+  .jiq-about-header h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+  .jiq-about-content {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .jiq-about-content { grid-template-columns: 1fr; }
+  }
+  .jiq-about-text h3 {
+    font-family: var(--font-display);
+    color: #e8ffa8;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+  }
+  .jiq-about-text p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #d1d5db;
+    margin: 0 0 16px 0;
+  }
+  .jiq-about-text p b {
+    color: #ffffff;
+    font-weight: 600;
+  }
+  .jiq-about-image img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    display: block;
+  }
+</style>
+</head>
+<body>
+<div class="jiq-root">
+  <div class="jiq-shell">
+
+    <div class="jiq-header">
+      <div class="jiq-brand">
+        <div class="jiq-mark">H</div>
+        <div>
+          <h1>HALO</h1>
+          <p>— Heuristic Action-Locked Observation.</p>
+        </div>
+      </div>
+      <div class="jiq-header-right">
+        <a href="/about" class="jiq-match-chip" style="text-decoration:none; transition: 0.2s;" onmouseover="this.style.color='#EFF5F1'" onmouseout="this.style.color='var(--text-dim)'">About Project HALO</a>
+        <span class="jiq-match-chip" id="clipChip">No clip loaded</span>
+        <span class="jiq-status-chip" id="statusChip"><span class="dot"></span><span id="statusChipText">Idle</span></span>
+        <span class="jiq-match-chip" style="display:flex; align-items:center; gap:6px;">
+          Backend:
+          <input id="apiHostInput" type="text" value="http://127.0.0.1:5000"
+                 style="background:transparent; border:1px solid var(--border-soft); border-radius:6px; color:var(--text); font-family:var(--font-mono); font-size:11px; padding:4px 6px; width:170px;" />
+          <button id="apiHostSave" style="cursor:pointer; border:none; border-radius:6px; background:var(--panel-raised); color:var(--text-dim); font-family:var(--font-mono); font-size:11px; padding:5px 8px;">Set</button>
+        </span>
+      </div>
+    </div>
+
+    <div class="jiq-upload-row">
+      <div class="upload-card">
+        <div class="upload-label">Upload a new video to analyse</div>
+        <div class="upload-controls">
+          <input type="file" id="videoUpload" accept="video/*" />
+          <button id="uploadButton">Upload &amp; Run</button>
+        </div>
+        <div class="upload-status" id="uploadStatus">Select a video file from your local disk.</div>
+        <div class="progress-track"><div class="progress-fill" id="uploadProgressFill">0%</div></div>
+      </div>
+      <div class="upload-card">
+        <div class="upload-label">Process existing input video</div>
+        <div class="upload-controls">
+          <select id="inputVideoSelect"></select>
+          <button id="processInputButton">Process</button>
+        </div>
+        <div class="upload-status" id="inputStatus">Server-side input files are loaded from <code>inputs/</code>.</div>
+        <div class="progress-track"><div class="progress-fill" id="inputProgressFill">0%</div></div>
+      </div>
+    </div>
+
+    <div class="jiq-grid">
+
+      <div style="display:flex; flex-direction:column; gap:18px;">
+
+        <div class="jiq-panel">
+          <div class="jiq-panel-head">
+            <h2><span class="bullet"></span>Annotated Feed</h2>
+            <span class="jiq-tag" id="videoTag">No output yet</span>
+          </div>
+          <div class="jiq-video" id="jiqVideo">
+            <div class="pitch-line pitch-halfway"></div>
+            <div class="pitch-line pitch-circle"></div>
+            <div class="pitch-line pitch-spot"></div>
+            <div class="video-empty-note" id="videoEmptyNote">Upload or select a video above — the annotated output (real detections, IDs and jersey numbers baked in by the backend) will play here once processing finishes.</div>
+            <div class="video-preview" id="videoPreviewContainer"></div>
+          </div>
+        </div>
+
+        <div class="jiq-panel">
+          <div class="jiq-panel-head">
+            <h2><span class="bullet"></span>Pipeline — Distributed 3&#8209;Tier Flow</h2>
+            <span class="jiq-tag" id="stageClock">Idle</span>
+          </div>
+          <div class="jiq-pipeline">
+            <div class="pipeline-row" id="pipelineRow">
+              <div class="stage" data-stage="0">
+                <div class="stage-top"><span class="stage-name">Ingest</span><span class="stage-num">01</span></div>
+                <div class="stage-chips">
+                  <span class="chip">Frame Sampling</span>
+                  <span class="chip">Detection (player/ball)</span>
+                  <span class="chip">Tracking</span>
+                </div>
+                <div class="stage-hw"><span class="hdot"></span>detection_best.pt</div>
+              </div>
+              <div class="stage" data-stage="1">
+                <div class="stage-top"><span class="stage-name">Process</span><span class="stage-num">02</span></div>
+                <div class="stage-chips">
+                  <span class="chip">Jersey OCR</span>
+                  <span class="chip">C-CNN Possession</span>
+                  <span class="chip">Team Color Cluster</span>
+                </div>
+                <div class="stage-hw"><span class="hdot"></span>jersey_ocr_best.pt · ccnn_best.pt</div>
+              </div>
+              <div class="stage" data-stage="2">
+                <div class="stage-top"><span class="stage-name">Synthesize</span><span class="stage-num">03</span></div>
+                <div class="stage-chips">
+                  <span class="chip">Event Log</span>
+                  <span class="chip">Tactics Transformer</span>
+                  <span class="chip">Video Export</span>
+                </div>
+                <div class="stage-hw"><span class="hdot"></span>tactics_best.pt</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="jiq-side">
+
+        <div class="jiq-panel">
+          <div class="jiq-panel-head">
+            <h2><span class="bullet"></span>Commentary</h2>
+            <span class="jiq-tag">Generated from real event log</span>
+          </div>
+          <div class="feed" id="commentaryFeed"><div class="feed-empty">No processed clip yet.</div></div>
+        </div>
+
+        <div class="jiq-panel">
+          <div class="jiq-panel-head">
+            <h2><span class="bullet" style="background:var(--gold); box-shadow:0 0 8px var(--gold);"></span>Event Log</h2>
+            <span class="jiq-tag">JSON Stream</span>
+          </div>
+          <div class="feed" id="eventFeed"><div class="feed-empty">No processed clip yet.</div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="jiq-kpis" id="kpiStrip">
+      <div class="kpi"><div class="kpi-label">Players Tracked</div><div class="kpi-value" id="kpiPlayers">–</div><div class="kpi-sub" id="kpiPlayersSub">Awaiting clip</div></div>
+      <div class="kpi"><div class="kpi-label">Touches Detected</div><div class="kpi-value" id="kpiTouches">–</div><div class="kpi-sub" id="kpiTouchesSub">&nbsp;</div></div>
+      <div class="kpi"><div class="kpi-label">Passes Completed</div><div class="kpi-value" id="kpiPasses">–</div><div class="kpi-sub" id="kpiPassesSub">&nbsp;</div></div>
+      <div class="kpi"><div class="kpi-label">Possession</div><div class="kpi-value" id="kpiPossession">–</div><div class="kpi-sub" id="kpiPossessionSub">&nbsp;</div></div>
+      <div class="kpi"><div class="kpi-label">Avg ID Confidence</div><div class="kpi-value" id="kpiConf">–</div><div class="kpi-sub" id="kpiConfSub">&nbsp;</div></div>
+      <div class="kpi"><div class="kpi-label">Processing Rate</div><div class="kpi-value" id="kpiFps">–</div><div class="kpi-sub" id="kpiFpsSub">&nbsp;</div></div>
+    </div>
+
+    <div class="jiq-footer-note">Every number above is computed by the Flask backend from actual model inference on your video — nothing here is simulated.</div>
+
+
+  </div>
+</div>
+
+<script>
+(function(){
+  // The Flask backend (app.py) almost never runs on the same origin/port as
+  // this static HTML file, so we do NOT default to window.location.origin.
+  // Instead the backend URL is explicit and user-editable (persisted locally).
+  let apiHost = window.localStorage ? (localStorage.getItem('jiq_api_host') || 'http://127.0.0.1:5000')
+                                     : 'http://127.0.0.1:5000';
+
+  const el = (id) => document.getElementById(id);
+  const apiHostInput = el('apiHostInput');
+  const apiHostSave = el('apiHostSave');
+  if (apiHostInput) apiHostInput.value = apiHost;
+  if (apiHostSave) {
+    apiHostSave.addEventListener('click', () => {
+      apiHost = apiHostInput.value.trim().replace(/\/$/, '');
+      try { localStorage.setItem('jiq_api_host', apiHost); } catch(e) {}
+      fetchInputVideos();
+    });
+  }
+  const uploadButton = el('uploadButton');
+  const processInputButton = el('processInputButton');
+  const videoUpload = el('videoUpload');
+  const uploadStatus = el('uploadStatus');
+  const inputStatus = el('inputStatus');
+  const uploadProgressFill = el('uploadProgressFill');
+  const inputProgressFill = el('inputProgressFill');
+  const videoPreview = el('videoPreviewContainer');
+  const videoEmptyNote = el('videoEmptyNote');
+  const inputVideoSelect = el('inputVideoSelect');
+  const clipChip = el('clipChip');
+  const statusChip = el('statusChip');
+  const statusChipText = el('statusChipText');
+  const stageClock = el('stageClock');
+  const videoTag = el('videoTag');
+  const commentaryFeed = el('commentaryFeed');
+  const eventFeed = el('eventFeed');
+  const stages = document.querySelectorAll('.stage');
+
+  let activePoller = null;
+
+  function setStatus(mode, text){
+    statusChip.className = 'jiq-status-chip' + (mode ? ' ' + mode : '');
+    statusChipText.textContent = text;
+  }
+
+  function setStageFromPercent(pct){
+    let idx = 0;
+    if (pct >= 66) idx = 2; else if (pct >= 33) idx = 1; else idx = 0;
+    stages.forEach((s, i) => {
+      s.classList.remove('active', 'complete');
+      if (i < idx) s.classList.add('complete');
+      if (i === idx && pct < 100) s.classList.add('active');
+      if (pct >= 100) s.classList.add('complete');
+    });
+    stageClock.textContent = pct >= 100 ? 'Complete' : `Stage ${idx + 1} / 3`;
+  }
+
+  function setProgress(fillEl, percent, label, statusEl){
+    const clamped = Math.min(100, Math.max(0, percent));
+    fillEl.style.width = `${clamped}%`;
+    fillEl.textContent = `${clamped}%`;
+    if (label && statusEl) statusEl.textContent = label;
+    setStageFromPercent(clamped);
+  }
+
+  function stopPolling(){
+    if (activePoller) { clearInterval(activePoller); activePoller = null; }
+  }
+
+  async function pollProgress(filename, fillEl, statusEl){
+    try {
+      const res = await fetch(`${apiHost}/progress/${encodeURIComponent(filename)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      setProgress(fillEl, data.percent || 0, data.message ? `${data.message}` : null, statusEl);
+      if (data.done) {
+        stopPolling();
+        if (data.error) {
+          setStatus('', 'Idle');
+          statusEl.textContent = `Error: ${data.error}`;
+          return;
+        }
+        await fetchResult(filename, statusEl);
+      }
+    } catch (err) {
+      console.error('progress poll failed', err);
+    }
+  }
+
+  function startPolling(filename, fillEl, statusEl){
+    stopPolling();
+    setStatus('busy', 'Processing');
+    clipChip.textContent = filename;
+    setProgress(fillEl, 0, 'Starting...', statusEl);
+    activePoller = setInterval(() => pollProgress(filename, fillEl, statusEl), 1500);
+    pollProgress(filename, fillEl, statusEl);
+  }
+
+  function renderEmpty(feedEl){
+    feedEl.innerHTML = '<div class="feed-empty">No events in this clip.</div>';
+  }
+
+  function renderCommentary(items){
+    commentaryFeed.innerHTML = '';
+    if (!items || items.length === 0) { renderEmpty(commentaryFeed); return; }
+    items.slice().reverse().forEach(item => {
+      const wrap = document.createElement('div');
+      wrap.className = 'commentary-item' + (item.tag === 'shot' ? ' shot' : item.tag === 'flag' ? ' flag' : '');
+      const icon = item.tag === 'shot' ? '\u26bd' : item.tag === 'flag' ? '\u26a0\ufe0f' : '\ud83e\udd16';
+      wrap.innerHTML = `<div class="c-avatar">${icon}</div><div class="c-body"><p>${item.text}</p><div class="c-meta">${item.t.toFixed(1)}s</div></div>`;
+      commentaryFeed.appendChild(wrap);
+    });
+  }
+
+  function renderEvents(events){
+    eventFeed.innerHTML = '';
+    if (!events || events.length === 0) { renderEmpty(eventFeed); return; }
+    events.slice().reverse().slice(0, 60).forEach(e => {
+      const wrap = document.createElement('div');
+      wrap.className = 'log-item';
+      wrap.innerHTML = `<span class="log-t">${e.t.toFixed(1)}s</span><span class="log-ev ev-${e.ev}">${e.ev}</span><span>${e.detail}</span>`;
+      eventFeed.appendChild(wrap);
+    });
+  }
+
+  function renderKpis(k){
+    el('kpiPlayers').textContent = k.players_tracked;
+    el('kpiPlayersSub').textContent = 'from real detections';
+    el('kpiTouches').textContent = k.touches;
+    el('kpiTouchesSub').textContent = `${k.flagged} flagged for review`;
+    el('kpiPasses').textContent = k.passes;
+    el('kpiPassesSub').textContent = `${k.shots} shot(s) detected`;
+    el('kpiPossession').innerHTML = `${k.possession_a}<span>/${k.possession_b}</span>`;
+    el('kpiPossessionSub').textContent = 'Team A / Team B (touch-time based)';
+    el('kpiConf').innerHTML = `${k.avg_ocr_confidence}<span>%</span>`;
+    el('kpiConfSub').textContent = 'avg jersey OCR confidence';
+    el('kpiFps').innerHTML = `${k.processing_fps}<span>fps</span>`;
+    el('kpiFpsSub').textContent = 'measured this run';
+  }
+
+  async function fetchResult(filename, statusEl){
+    try {
+      const res = await fetch(`${apiHost}/result/${encodeURIComponent(filename)}`);
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        statusEl.textContent = data.error || 'Processing failed.';
+        setStatus('', 'Idle');
+        return;
+      }
+      setStatus('ready', 'Ready');
+      videoTag.textContent = `${data.result.fps_source} fps source · ${data.result.duration_sec}s`;
+      videoEmptyNote.style.display = 'none';
+      videoPreview.innerHTML = `<video controls autoplay muted src="${apiHost}${data.annotated_url}"></video>`;
+      renderCommentary(data.result.commentary);
+      renderEvents(data.result.events);
+      renderKpis(data.result.kpis);
+      statusEl.innerHTML = `Processed <b>${filename}</b> successfully. <a href="${apiHost}${data.annotated_url}" target="_blank">Open annotated video</a>`;
+    } catch (err) {
+      statusEl.textContent = 'Could not retrieve results due to a network error.';
+      setStatus('', 'Idle');
+      console.error(err);
+    }
+  }
+
+  async function fetchInputVideos(){
+    try {
+      const res = await fetch(`${apiHost}/inputs`);
+      const data = await res.json();
+      if (!res.ok) { inputStatus.textContent = data.error || 'Unable to load input videos.'; return; }
+      inputVideoSelect.innerHTML = '';
+      if (!data.files || data.files.length === 0) {
+        inputVideoSelect.innerHTML = '<option value="">No input files found</option>';
+        inputStatus.textContent = 'No videos found in inputs/. Add a video file and refresh.';
+        return;
+      }
+      data.files.forEach(f => {
+        const opt = document.createElement('option');
+        opt.value = f; opt.textContent = f;
+        inputVideoSelect.appendChild(opt);
+      });
+      inputStatus.textContent = `Loaded ${data.files.length} input video(s) from inputs/.`;
+    } catch (err) {
+      inputStatus.textContent = 'Unable to reach the backend at ' + apiHost + '. Is app.py running?';
+      console.error(err);
+    }
+  }
+
+  uploadButton.addEventListener('click', async () => {
+    const file = videoUpload.files[0];
+    if (!file) { uploadStatus.textContent = 'Please select a video file first.'; return; }
+    uploadButton.disabled = true;
+    uploadStatus.textContent = 'Uploading...';
+    const formData = new FormData();
+    formData.append('video', file);
+    try {
+      const res = await fetch(`${apiHost}/upload`, { method: 'POST', body: formData });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        uploadStatus.textContent = data.error || 'Upload failed.';
+        uploadButton.disabled = false;
+        return;
+      }
+      startPolling(data.filename, uploadProgressFill, uploadStatus);
+    } catch (err) {
+      uploadStatus.textContent = 'Upload failed due to a network or server error.';
+      console.error(err);
+    } finally {
+      uploadButton.disabled = false;
+    }
+  });
+
+  processInputButton.addEventListener('click', async () => {
+    const filename = inputVideoSelect.value;
+    if (!filename) { inputStatus.textContent = 'Select a video from the list first.'; return; }
+    processInputButton.disabled = true;
+    try {
+      const res = await fetch(`${apiHost}/process`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        inputStatus.textContent = data.error || 'Processing failed to start.';
+        return;
+      }
+      startPolling(filename, inputProgressFill, inputStatus);
+    } catch (err) {
+      inputStatus.textContent = 'Processing failed due to a network or server error.';
+      console.error(err);
+    } finally {
+      processInputButton.disabled = false;
+    }
+  });
+
+  setStageFromPercent(0);
+  fetchInputVideos();
+})();
+</script>
+</body>
+</html>
